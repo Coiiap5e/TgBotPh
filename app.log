@@ -1,0 +1,75 @@
+{"time":"2026-04-01T20:05:48.4039026+03:00","level":"ERROR","msg":"Failed to load configuration","error":"[CONFIG_ERROR] Kafka broker URLs are not set"}
+{"time":"2026-04-01T20:09:59.7889501+03:00","level":"INFO","msg":"Starting Kafka Consumer service..."}
+{"time":"2026-04-01T20:09:59.8065313+03:00","level":"INFO","msg":"Stdout notifier initialized successfully for temporary Kafka consumer testing."}
+{"time":"2026-04-01T20:09:59.8065313+03:00","level":"INFO","msg":"Kafka consumer initialized successfully"}
+{"time":"2026-04-01T20:09:59.8070656+03:00","level":"INFO","msg":"Starting Kafka consumer","topic":"photographer_notifications","groupID":"telegram-bot-consumer-group"}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":1,"offset":6,"key":"general_message"}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Message notification sent successfully","message":"No upcoming shoots in the next 2 hours."}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":1,"offset":7,"key":"shoot_notification"}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Notification sent successfully for shoot","shoot_id":10}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":1,"offset":8,"key":"shoot_notification"}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Notification sent successfully for shoot","shoot_id":10}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":1,"offset":9,"key":"shoot_notification"}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Notification sent successfully for shoot","shoot_id":10}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":0,"offset":6,"key":"general_message"}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Message notification sent successfully","message":"No upcoming shoots in the next 2 hours."}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":0,"offset":7,"key":"shoot_notification"}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Notification sent successfully for shoot","shoot_id":10}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":0,"offset":8,"key":"general_message"}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Message notification sent successfully","message":"No upcoming shoots in the next 2 hours."}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":0,"offset":9,"key":"shoot_notification"}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Notification sent successfully for shoot","shoot_id":10}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":0,"offset":10,"key":"general_message"}
+{"time":"2026-04-01T20:10:11.8276367+03:00","level":"INFO","msg":"Message notification sent successfully","message":"No upcoming shoots in the next 2 hours."}
+{"time":"2026-04-01T20:10:11.8281431+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":2,"offset":2,"key":"shoot_notification"}
+{"time":"2026-04-01T20:10:11.8281584+03:00","level":"INFO","msg":"Notification sent successfully for shoot","shoot_id":10}
+{"time":"2026-04-01T20:10:11.8281584+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":2,"offset":3,"key":"general_message"}
+{"time":"2026-04-01T20:10:11.8281584+03:00","level":"INFO","msg":"Message notification sent successfully","message":"No upcoming shoots in the next 2 hours."}
+{"time":"2026-04-01T20:10:11.8281584+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":2,"offset":4,"key":"general_message"}
+{"time":"2026-04-01T20:10:11.8281584+03:00","level":"INFO","msg":"Message notification sent successfully","message":"No upcoming shoots in the next 2 hours."}
+{"time":"2026-04-01T20:10:11.8281584+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":2,"offset":5,"key":"shoot_notification"}
+{"time":"2026-04-01T20:10:11.8281584+03:00","level":"INFO","msg":"Notification sent successfully for shoot","shoot_id":10}
+{"time":"2026-04-01T20:10:11.8281584+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":2,"offset":6,"key":"general_message"}
+{"time":"2026-04-01T20:10:11.8281584+03:00","level":"INFO","msg":"Message notification sent successfully","message":"No upcoming shoots in the next 2 hours."}
+{"time":"2026-04-01T20:10:11.8281584+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":2,"offset":7,"key":"general_message"}
+{"time":"2026-04-01T20:10:11.8281584+03:00","level":"INFO","msg":"Message notification sent successfully","message":"No upcoming shoots in the next 2 hours."}
+{"time":"2026-04-01T20:10:11.8281584+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":2,"offset":8,"key":"shoot_notification"}
+{"time":"2026-04-01T20:10:11.8281584+03:00","level":"INFO","msg":"Notification sent successfully for shoot","shoot_id":10}
+{"time":"2026-04-01T20:10:23.737702+03:00","level":"INFO","msg":"Shutting down service..."}
+{"time":"2026-04-01T20:10:23.737702+03:00","level":"INFO","msg":"Closing Kafka reader"}
+{"time":"2026-04-01T20:10:23.737702+03:00","level":"ERROR","msg":"Error fetching message from Kafka","error":"context canceled"}
+{"time":"2026-04-01T20:10:29.847167+03:00","level":"INFO","msg":"Kafka consumer closed successfully"}
+{"time":"2026-04-01T20:10:29.847167+03:00","level":"INFO","msg":"Service stopped gracefully"}
+{"time":"2026-04-01T20:15:15.6409817+03:00","level":"INFO","msg":"Starting Kafka Consumer service..."}
+{"time":"2026-04-01T20:15:15.6589821+03:00","level":"INFO","msg":"Stdout notifier initialized successfully for temporary Kafka consumer testing."}
+{"time":"2026-04-01T20:15:15.6589821+03:00","level":"INFO","msg":"Kafka consumer initialized successfully"}
+{"time":"2026-04-01T20:15:15.6589821+03:00","level":"INFO","msg":"Starting Kafka consumer","topic":"photographer_notifications","groupID":"telegram-bot-consumer-group"}
+{"time":"2026-04-01T20:15:27.6915023+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":2,"offset":9,"key":"shoot_notification"}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Notification sent successfully for shoot","shoot_id":10}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":2,"offset":10,"key":"shoot_notification"}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Notification sent successfully for shoot","shoot_id":10}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":0,"offset":11,"key":"general_message"}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Message notification sent successfully","message":"No upcoming shoots in the next 2 hours."}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":0,"offset":12,"key":"shoot_notification"}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Notification sent successfully for shoot","shoot_id":10}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":0,"offset":13,"key":"shoot_notification"}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Notification sent successfully for shoot","shoot_id":10}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":0,"offset":14,"key":"general_message"}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Message notification sent successfully","message":"No upcoming shoots in the next 2 hours."}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":1,"offset":10,"key":"general_message"}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Message notification sent successfully","message":"No upcoming shoots in the next 2 hours."}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":1,"offset":11,"key":"general_message"}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Message notification sent successfully","message":"No upcoming shoots in the next 2 hours."}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":1,"offset":12,"key":"general_message"}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Message notification sent successfully","message":"No upcoming shoots in the next 2 hours."}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":1,"offset":13,"key":"shoot_notification"}
+{"time":"2026-04-01T20:15:27.6920354+03:00","level":"INFO","msg":"Notification sent successfully for shoot","shoot_id":10}
+{"time":"2026-04-01T20:16:03.7179566+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":0,"offset":15,"key":"general_message"}
+{"time":"2026-04-01T20:16:03.7179566+03:00","level":"INFO","msg":"Message notification sent successfully","message":"No upcoming shoots in the next 2 hours."}
+{"time":"2026-04-01T20:16:03.7179566+03:00","level":"INFO","msg":"Received message from Kafka","topic":"photographer_notifications","partition":1,"offset":14,"key":"shoot_notification"}
+{"time":"2026-04-01T20:16:03.7185383+03:00","level":"INFO","msg":"Notification sent successfully for shoot","shoot_id":10}
+{"time":"2026-04-01T20:16:16.2170103+03:00","level":"INFO","msg":"Shutting down service..."}
+{"time":"2026-04-01T20:16:16.2170103+03:00","level":"INFO","msg":"Closing Kafka reader"}
+{"time":"2026-04-01T20:16:16.2170103+03:00","level":"ERROR","msg":"Error fetching message from Kafka","error":"context canceled"}
+{"time":"2026-04-01T20:16:21.7358026+03:00","level":"INFO","msg":"Kafka consumer closed successfully"}
+{"time":"2026-04-01T20:16:21.7358026+03:00","level":"INFO","msg":"Service stopped gracefully"}

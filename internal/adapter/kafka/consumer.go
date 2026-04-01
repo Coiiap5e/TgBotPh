@@ -6,8 +6,8 @@ import (
 	"log/slog"
 	"time"
 
-	"github.com/Coiiap5e/TgBotPh/internal/adapter/notifier"
 	"github.com/Coiiap5e/TgBotPh/internal/model"
+	"github.com/Coiiap5e/TgBotPh/internal/service" // Добавлен импорт service
 	kafkago "github.com/segmentio/kafka-go"
 )
 
@@ -20,10 +20,10 @@ type ConsumerConfig struct {
 type KafkaConsumer struct {
 	reader   *kafkago.Reader
 	logger   *slog.Logger
-	notifier *notifier.TelegramNotifier
+	notifier service.Notifier // Заглушка
 }
 
-func NewKafkaConsumer(cfg ConsumerConfig, notifier *notifier.TelegramNotifier, logger *slog.Logger) *KafkaConsumer {
+func NewKafkaConsumer(cfg ConsumerConfig, notifier service.Notifier, logger *slog.Logger) *KafkaConsumer {
 	r := kafkago.NewReader(kafkago.ReaderConfig{
 		Brokers:        cfg.BrokerURLs,
 		Topic:          cfg.Topic,
@@ -75,17 +75,17 @@ func (c *KafkaConsumer) ConsumeMessages(ctx context.Context) {
 				}
 
 				if err := c.notifier.Notify(shoot); err != nil {
-					c.logger.Error("Error sending Telegram notification for shoot", "error", err, "shoot_id", shoot.Id)
+					c.logger.Error("Error sending notification for shoot", "error", err, "shoot_id", shoot.Id) // Обновлено сообщение об ошибке
 				} else {
-					c.logger.Info("Telegram notification sent successfully for shoot", "shoot_id", shoot.Id)
+					c.logger.Info("Notification sent successfully for shoot", "shoot_id", shoot.Id) // Обновлено сообщение об успехе
 				}
 
 			case "general_message":
 				message := string(m.Value)
 				if err := c.notifier.NotifyMessage(message); err != nil {
-					c.logger.Error("Error sending Telegram message notification", "error", err, "message", message)
+					c.logger.Error("Error sending message notification", "error", err, "message", message) // Обновлено сообщение об ошибке
 				} else {
-					c.logger.Info("Telegram message notification sent successfully", "message", message)
+					c.logger.Info("Message notification sent successfully", "message", message) // Обновлено сообщение об успехе
 				}
 
 			default:

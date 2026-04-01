@@ -11,6 +11,7 @@ import (
 	"github.com/Coiiap5e/TgBotPh/internal/adapter/notifier"
 	"github.com/Coiiap5e/TgBotPh/internal/config"
 	"github.com/Coiiap5e/TgBotPh/internal/logs"
+	"github.com/Coiiap5e/TgBotPh/internal/service"
 )
 
 func main() {
@@ -25,14 +26,18 @@ func main() {
 		os.Exit(1)
 	}
 
-	logger.Info("Starting Telegram Bot and Kafka Consumer service...")
+	logger.Info("Starting Kafka Consumer service...")
 
-	tgNotifier, err := notifier.NewTelegramNotifier(cfg.Telegram.BotToken, cfg.Telegram.ChannelID)
-	if err != nil {
-		logger.Error("Failed to initialize Telegram notifier", "error", err)
-		os.Exit(1)
-	}
-	logger.Info("Telegram notifier initialized successfully")
+	// Используем StdoutNotifier для временного тестирования
+	// tgNotifier, err := notifier.NewTelegramNotifier(cfg.Telegram.BotToken, cfg.Telegram.ChannelID)
+	// if err != nil {
+	// 	logger.Error("Failed to initialize Telegram notifier", "error", err)
+	// 	os.Exit(1)
+	// }
+	// logger.Info("Telegram notifier initialized successfully")
+
+	var notificationService service.Notifier = notifier.NewStdoutNotifier()
+	logger.Info("Stdout notifier initialized successfully for temporary Kafka consumer testing.")
 
 	kafkaConsumer := kafka.NewKafkaConsumer(
 		kafka.ConsumerConfig{
@@ -40,7 +45,7 @@ func main() {
 			Topic:      cfg.Kafka.Topic,
 			GroupID:    cfg.Kafka.GroupID,
 		},
-		tgNotifier,
+		notificationService,
 		logger,
 	)
 	logger.Info("Kafka consumer initialized successfully")

@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/Coiiap5e/TgBotPh/internal/errors"
+	"github.com/joho/godotenv"
 )
 
 const (
@@ -32,15 +33,18 @@ type KafkaConfig struct {
 }
 
 func NewConfig() (*Config, error) {
+
+	_ = godotenv.Load()
+
 	// Настройки Telegram
-	telegramBotToken := os.Getenv(EnvTelegramBotToken)
-	if telegramBotToken == "" {
-		return nil, errors.New(errors.ErrCodeConfig, "Telegram bot token is not set")
-	}
-	telegramChannelID := os.Getenv(EnvTelegramChannelID)
-	if telegramChannelID == "" {
-		return nil, errors.New(errors.ErrCodeConfig, "Telegram channel ID is not set")
-	}
+	//telegramBotToken := os.Getenv(EnvTelegramBotToken)
+	//if telegramBotToken == "" {
+	//	return nil, errors.New(errors.ErrCodeConfig, "Telegram bot token is not set")
+	//}
+	//telegramChannelID := os.Getenv(EnvTelegramChannelID)
+	//if telegramChannelID == "" {
+	//	return nil, errors.New(errors.ErrCodeConfig, "Telegram channel ID is not set")
+	//}
 
 	// Настройки Kafka
 	kafkaBrokerURLsStr := os.Getenv(EnvKafkaBrokerURLs)
@@ -60,10 +64,10 @@ func NewConfig() (*Config, error) {
 	kafkaGroupID := getEnv(EnvKafkaGroupID, "telegram-bot-consumer-group") // Group ID по умолчанию
 
 	return &Config{
-		Telegram: TelegramConfig{
-			BotToken:  telegramBotToken,
-			ChannelID: telegramChannelID,
-		},
+		//Telegram: TelegramConfig{
+		//	BotToken:  telegramBotToken,
+		//	ChannelID: telegramChannelID,
+		//},
 		Kafka: KafkaConfig{
 			BrokerURLs: kafkaBrokerURLs,
 			Topic:      kafkaTopic,
