@@ -19,7 +19,6 @@ func main() {
 	defer cleanup()
 
 	slog.SetDefault(logger)
-
 	cfg, err := config.NewConfig()
 	if err != nil {
 		slog.Default().Error("Failed to load configuration", "error", err)
