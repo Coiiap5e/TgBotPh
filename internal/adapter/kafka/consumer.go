@@ -6,6 +6,10 @@ import (
 	"log/slog"
 	"time"
 
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/metric"
+
+	"github.com/Coiiap5e/TgBotPh/internal/errors"
 	"github.com/Coiiap5e/TgBotPh/internal/model"
 	"github.com/Coiiap5e/TgBotPh/internal/service" // Добавлен импорт service
 	kafkago "github.com/segmentio/kafka-go"
@@ -18,12 +22,14 @@ type ConsumerConfig struct {
 }
 
 type KafkaConsumer struct {
-	reader   *kafkago.Reader
-	logger   *slog.Logger
-	notifier service.Notifier // Заглушка
+	reader                  *kafkago.Reader
+	logger                  *slog.Logger
+	notifier                service.Notifier // Заглушка
+	meter                   metric.Meter
+	kafkaGetMessagesCounter metric.Int64Counter
 }
 
-func NewKafkaConsumer(cfg ConsumerConfig, notifier service.Notifier, logger *slog.Logger) *KafkaConsumer {
+func NewKafkaConsumer(cfg ConsumerConfig, notifier service.Notifier, logger *slog.Logger, meter metric.Meter) (*KafkaConsumer, error) {
 	r := kafkago.NewReader(kafkago.ReaderConfig{
 		Brokers:        cfg.BrokerURLs,
 		Topic:          cfg.Topic,
@@ -35,11 +41,26 @@ func NewKafkaConsumer(cfg ConsumerConfig, notifier service.Notifier, logger *slo
 		ErrorLogger:    kafkago.LoggerFunc(logger.Error),
 	})
 
-	return &KafkaConsumer{
+	consumer := &KafkaConsumer{
 		reader:   r,
 		logger:   logger,
 		notifier: notifier,
+		meter:    meter,
 	}
+
+	kafkaGetMessagesCounter, err := meter.Int64Counter(
+		"kafka_get_messages_total",
+		metric.WithDescription("Total number of get messeges from Kafka"),
+		metric.WithUnit("1"),
+	)
+	if err != nil {
+		logger.Error("failed to create Kafka get messages counter", "error", err)
+		return nil, errors.Wrap(err, errors.ErrCodeKafkaConsume, "failed to create Kafka get messages counter")
+	}
+
+	consumer.kafkaGetMessagesCounter = kafkaGetMessagesCounter
+
+	return consumer, nil
 }
 
 func (c *KafkaConsumer) ConsumeMessages(ctx context.Context) {
@@ -75,17 +96,17 @@ func (c *KafkaConsumer) ConsumeMessages(ctx context.Context) {
 				}
 
 				if err := c.notifier.Notify(shoot); err != nil {
-					c.logger.Error("Error sending notification for shoot", "error", err, "shoot_id", shoot.Id) // Обновлено сообщение об ошибке
+					c.logger.Error("Error sending notification for shoot", "error", err, "shoot_id", shoot.Id)
 				} else {
-					c.logger.Info("Notification sent successfully for shoot", "shoot_id", shoot.Id) // Обновлено сообщение об успехе
+					c.logger.Info("Notification sent successfully for shoot", "shoot_id", shoot.Id)
 				}
 
 			case "general_message":
 				message := string(m.Value)
 				if err := c.notifier.NotifyMessage(message); err != nil {
-					c.logger.Error("Error sending message notification", "error", err, "message", message) // Обновлено сообщение об ошибке
+					c.logger.Error("Error sending message notification", "error", err, "message", message)
 				} else {
-					c.logger.Info("Message notification sent successfully", "message", message) // Обновлено сообщение об успехе
+					c.logger.Info("Message notification sent successfully", "message", message)
 				}
 
 			default:
@@ -96,6 +117,11 @@ func (c *KafkaConsumer) ConsumeMessages(ctx context.Context) {
 			if err := c.reader.CommitMessages(ctx, m); err != nil {
 				c.logger.Error("Error committing message", "error", err)
 			}
+			c.kafkaGetMessagesCounter.Add(ctx, 1, metric.WithAttributes(
+				attribute.String("topic", m.Topic),
+				attribute.String("message_type", string(m.Key)),
+			))
+
 		}
 	}
 }

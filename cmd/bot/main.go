@@ -7,7 +7,10 @@ import (
 	"os/signal"
 	"syscall"
 
+	sdkmetric "go.opentelemetry.io/otel/sdk/metric"
+
 	"github.com/Coiiap5e/TgBotPh/internal/adapter/kafka"
+	"github.com/Coiiap5e/TgBotPh/internal/adapter/metrics" // Добавлен адаптер метрик
 	"github.com/Coiiap5e/TgBotPh/internal/adapter/notifier"
 	"github.com/Coiiap5e/TgBotPh/internal/config"
 	"github.com/Coiiap5e/TgBotPh/internal/logs"
@@ -19,14 +22,33 @@ func main() {
 	defer cleanup()
 
 	slog.SetDefault(logger)
-
-	cfg, err := config.NewConfig()
+	cfg, err := config.Load()
 	if err != nil {
 		slog.Default().Error("Failed to load configuration", "error", err)
 		os.Exit(1)
 	}
 
 	logger.Info("Starting Kafka Consumer service...")
+
+	// Инициализация FileExporter для метрик
+	metricsFilePath := cfg.Metrics.FilePath
+	fileExporter, err := metrics.NewFileExporter(metricsFilePath, logger)
+	if err != nil {
+		logger.Error("Failed to create file exporter for metrics", "error", err)
+		os.Exit(1)
+	}
+
+	// Настройка MeterProvider с PeriodicReader
+	reader := sdkmetric.NewPeriodicReader(fileExporter, sdkmetric.WithInterval(cfg.Metrics.ExportInterval))
+	mp := sdkmetric.NewMeterProvider(sdkmetric.WithReader(reader))
+	meter := mp.Meter("photographer-app")
+
+	// Отложенное завершение работы MeterProvider
+	defer func() {
+		if err := mp.Shutdown(context.Background()); err != nil {
+			logger.Error("Error shutting down MeterProvider", "error", err)
+		}
+	}()
 
 	// Используем StdoutNotifier для временного тестирования
 	// tgNotifier, err := notifier.NewTelegramNotifier(cfg.Telegram.BotToken, cfg.Telegram.ChannelID)
@@ -39,7 +61,7 @@ func main() {
 	var notificationService service.Notifier = notifier.NewStdoutNotifier()
 	logger.Info("Stdout notifier initialized successfully for temporary Kafka consumer testing.")
 
-	kafkaConsumer := kafka.NewKafkaConsumer(
+	kafkaConsumer, err := kafka.NewKafkaConsumer(
 		kafka.ConsumerConfig{
 			BrokerURLs: cfg.Kafka.BrokerURLs,
 			Topic:      cfg.Kafka.Topic,
@@ -47,7 +69,14 @@ func main() {
 		},
 		notificationService,
 		logger,
+		meter,
 	)
+
+	if err != nil {
+		logger.Error("Error creating Kafka consumer", "error", err)
+		os.Exit(1)
+	}
+
 	logger.Info("Kafka consumer initialized successfully")
 
 	ctx, cancel := context.WithCancel(context.Background())
