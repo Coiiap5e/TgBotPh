@@ -24,6 +24,9 @@ const (
 	ErrCodeTelegramBotSend ErrorCode = "TELEGRAM_BOT_SEND_ERROR"
 	ErrCodeKafkaConsume    ErrorCode = "KAFKA_CONSUME_ERROR"
 
+	// General errors
+	ErrCodeInternal ErrorCode = "INTERNAL_ERROR"
+	
 	//Configuration
 
 	ErrCodeConfig ErrorCode = "CONFIG_ERROR"
